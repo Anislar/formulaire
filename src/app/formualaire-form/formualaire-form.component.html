@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>formulaire</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <form method="post" [formGroup]="formulaireForm" (ngSubmit)="formulaireForm.valid && onSubmit()" action="/">
+            <div class="form-group">
+                <label>nom utilisateur</label>
+                <input type="text" class="form-control" placeholder="john" formControlName="username" [ngClass]="{'is-invalid':formulaireForm.get('username').touched && formulaireForm.get('username').invalid}">
+                <div class="invalid-feedback">
+                    <div>userName is required</div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>email</label>
+                <input type="email" class="form-control" placeholder="john@gmail.com" formControlName="email" [ngClass]="{'is-invalid':formulaireForm.get('email').touched && formulaireForm.get('email').invalid}">
+
+                <div *ngIf="formulaireForm.get('email').touched && formulaireForm.get('email').invalid" class="invalid-feedback">
+                    <div *ngIf="formulaireForm.get('email').errors.required">Email is required</div>
+                    <div *ngIf="formulaireForm.get('email').errors.email">Email must be a valid Adress Mail</div>
+
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label>mot de passe</label>
+                <input type="password" class="form-control" placeholder="****" formControlName="password" [ngClass]="{'is-invalid':formulaireForm.get('password').touched && formulaireForm.get('password').invalid}">
+                <div *ngIf="formulaireForm.get('password').touched && formulaireForm.get('password').invalid" class=" invalid-feedback ">
+                    <div *ngIf="formulaireForm.get('password').errors.required">Password is required</div>
+                    <div *ngIf="formulaireForm.get('password').errors.minLength">password must be at least 6 charachter</div>
+                </div>
+            </div>
+
+            <button type="submit " class="btn btn-primary " [disabled]="!formulaireForm.valid">submit</button>
+
+        </form>
+    </div>
+
+
+    <pre>{{ formulaireForm.value | json }}</pre>
+
+
+</body>
+
+
+</html>
